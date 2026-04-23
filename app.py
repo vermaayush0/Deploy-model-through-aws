@@ -25,7 +25,6 @@ def load_dataset():
     df = pd.read_csv(DATA_PATH)
     return df.dropna()
 
-@st.cache_data
 def encode_data(df):
     df = df.copy()
     encoders = {}
@@ -64,14 +63,12 @@ def load_model():
         encoders = pickle.load(f)
     return model, encoders
 
-@st.cache_data
 def evaluate_model(model, X_test, y_test):
     y_pred = model.predict(X_test)
     accuracy = accuracy_score(y_test, y_pred)
     report = classification_report(y_test, y_pred, zero_division=0)
     return accuracy, report
 
-@st.cache_data
 def get_prediction(model, input_df):
     return model.predict(input_df)
 
